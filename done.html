@@ -1,0 +1,92 @@
+<!-- <?php
+    $Email = $password = "";
+    $EmailErr = $passwordErr = "";
+        if($_SERVER["REQUEST_METHOD"] == "POST"){
+            if(empty($_POST["Email"])){
+                $EmailErr = "Email is Required";
+            }else{
+                $Email = $_POST["Email"];
+            }
+            if(empty($_POST["Password"])){
+                $passwordErr = "Password is Required";
+            }else{
+                $password = $_POST["Password"];
+            }
+
+            if($Email && $password){
+                include("connections.php");
+
+                $check_email= mysqli_query($connections, "SELECT * FROM login_tbl WHERE email='$Email'");
+                $check_email_row = mysqli_num_rows($check_email);
+                    if($check_email_row > 0){
+                        while($row=mysqli_fetch_assoc($check_email)){
+                            $db_password = $row["Password"];                        
+                            if($password == $db_password){
+                            $db_Account_type = $row ["Account_type"];
+                                if($db_Account_type == "1"){
+                                    echo " <script> window.location.href='admin' </script> ";
+                                }else{
+                                    echo "<script> window.location.href='user'  </script>";
+                                }
+                        } else{
+                            $passwordErr = "password is incorrect";
+                        }
+                      }
+                    } else {
+                        $EmailErr = "Email is not registered";
+                    }
+            }
+        }     
+?> -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" conntent="width=device-width,initial-scale=1.0">
+        <title> login form FUSHIGURO</title>
+        <link rel="stylesheet" href="styleddd.css"> 
+        <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css
+' rel='stylesheet'>
+</head> 
+
+<body>
+     
+<div class="wrapper">
+        <div class="video-container">
+        <video src="mylivewallpapers-com-Solo-Leveling-Statue-4K" autoplay muted loop id="myVideo"> 
+        </video>
+        <form method="POST" action="<?php htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+            <h1>Login</h1>
+            <div class="input-box">
+                 <input type="text" id="Email" placeholder="Email" name="Email" value="<?php echo $Email; ?>">
+                 <span class ="error"> <?php echo $EmailErr; ?> </span>
+
+            </div>
+            <div class="input-box">
+                <input type="Password" id="Password" placeholder="Password" name="Password"  value="<?php echo $password; ?>">
+                <span class="error"><?php echo $passwordErr;?></span>
+                
+           </div>
+
+           <div class="remember-forgot">
+                <label><input type="checkbox"> remember me</label>
+                <a href="#">forgot password?</a>
+           </div>
+           <button type="submit" class="btn">login</button>
+
+           <div class="register-link"></div>
+           <p>don't have an account? <a
+            href="#">register</a></p>
+        
+
+         
+        </form>
+       </div>      
+            
+
+</body>
+     
+</html>
